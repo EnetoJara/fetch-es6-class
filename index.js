@@ -14,11 +14,11 @@ exports.Fetch = Fetch;
 Fetch.prototype.request = function request(req, config) {
     return fetch(req, config)
         .then(function (res) {
-        if (res.status > 210) {
-            throw res;
-        }
-        return res;
-    })
+            if (res.status > 210) {
+                throw res;
+            }
+            return res;
+        })
 };
 Fetch.prototype.get = function get(url, headers) {
     if (headers === void 0) { headers = defheaders; }
@@ -38,7 +38,14 @@ Fetch.prototype.post = function post(url, body, headers) {
         body: JSON.stringify(body),
     };
     return this.request(url, auxConfig)
-    .then(res=>res.status);
+        .then(res => {
+            if (res.status === 200) {
+
+                return res;
+            }
+
+            return;
+        });
 };
 Fetch.prototype.delete = function (url, headers) {
     if (headers === void 0) { headers = defheaders; }
@@ -59,7 +66,7 @@ Fetch.prototype.put = function put(url, body, headers) {
         body: JSON.stringify(body),
     };
     return this.request(url, auxConfig)
-    .then(res => res.status);
+        .then(res => res.status);
 };
 Fetch.prototype.patch = function patch(url, body, headers) {
     if (headers === void 0) { headers = defheaders; }
@@ -70,11 +77,11 @@ Fetch.prototype.patch = function patch(url, body, headers) {
         body: JSON.stringify(body),
     };
     return this.request(url, auxConfig)
-    .then(res => {
-        if (res.status===200) {
-            return res.json();
-        }
+        .then(res => {
+            if (res.status === 200) {
+                return res;
+            }
 
-        return res.status;
-    });
+            return;
+        });
 };

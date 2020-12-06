@@ -122,7 +122,7 @@ export declare class Fetch {
      * @template B - body object.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
-     * @returns the status code of the request.
+     * @returns if status code is 200 it returns the response, else void
      * @example
      * const api = new Fetch();
      * api.post("www.domain.com", {
@@ -176,7 +176,7 @@ export declare class Fetch {
      * For example if an *auto-incrementing* counter field is an integral part of the resource,
      * then a *PUT* will naturally overwrite it (since it overwrites everything), but not necessarily so for *PATCH*.
      * *PATCH* (like *POST*) may have side-effects on other resources.
-     * @template R - response object.
+     *
      * @template B - body object.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
@@ -195,7 +195,7 @@ export declare class Fetch {
      *      "Accept": "application/json",
      *      "Authorization":"Bearer I_am_yow_token"
      * })
-     * @returns if you get a 200 status code make sure your response has a json. other wise use the request method.
+     * @returns if status code is 200 it returns the response, else void
      */
     patch: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
 }
