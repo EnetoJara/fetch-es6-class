@@ -1,0 +1,26 @@
+{
+  "name": "fetch-es6-class",
+  "version": "5.0.0",
+  "description": "es6 axios class",
+  "main":"index.js",
+  "deprecated": false,
+  "repository": "https://github.com/EnetoJara/axios-typescript",
+  "bugs": "https://github.com/EnetoJara/axios-typescript/issues",
+  "types": "index.d.ts",
+  "author": {
+      "name": "Ernesto Jara Olveda",
+      "email": "ernesto.jara06@gmail.com",
+      "url": "https://www.enetojarapro.com"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "keywords": [
+      "Fetch",
+      "TypeScript",
+      "es6",
+      "class"
+  ],
+  "license": "Apache-2.0"
+}
