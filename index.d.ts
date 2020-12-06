@@ -139,7 +139,7 @@ export declare class Fetch {
      *      "Authorization":"Bearer I_am_yow_token"
      * })
      */
-    post: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
+    post: <B>(url: string, body: B, headers?: HeadersInit)=> Promise<Response|void>;
     /**
      * The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
      * The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the same effect (that is no side effect), whereas successive identical POST requests may have additional effects, akin to placing an order several times.
