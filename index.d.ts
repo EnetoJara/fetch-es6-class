@@ -54,7 +54,7 @@ export interface RequestConfig {
 }
 declare type RequestInfo = Request | string;
 export declare class Fetch {
-    /**
+/**
      * Request Method. use this method in case you need to send a request with specific configurarions.
      *
      * @param {Request|string} req - it can be a string or a request.
@@ -165,7 +165,7 @@ export declare class Fetch {
      *      "Authorization":"Bearer I_am_yow_token"
      * })
      */
-    put: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
+    put: <B>(url: string, body: B, headers?: HeadersInit) => Promise<Response|void>;
     /**
      * The *HTTP PATCH* request method applies partial modifications to a resource.
      * *PATCH* is somewhat analogous to the *update* concept found in `CRUD` (in general, *HTTP* is different than `CRUD`, and the two should not be confused).
@@ -197,6 +197,6 @@ export declare class Fetch {
      * })
      * @returns if status code is 200 it returns the response, else void
      */
-    patch: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
+    patch: <B>(url: string, body: B, headers?: HeadersInit) => Promise<Response|void>;
 }
 export {};
