@@ -71,13 +71,12 @@ export declare class Fetch {
      * }
      * })
      */
-    request: <T>(req: RequestInfo, config: RequestConfig) => Promise<T>;
+    request: (req: RequestInfo, config: RequestConfig) => Promise<Response>;
     /**
      * The HTTP GET method requests a representation of the specified resource.
      * Requests using GET should only be used to request data (they shouldn't incude data).
      *
      * If you need to send a token on each request, you need to pass a second parameter with yow headers.
-     * @template R - response object.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
      * @example
@@ -90,7 +89,7 @@ export declare class Fetch {
      *      "Authorization":"Bearer I_am_yow_token"
      * })
      */
-    get: <R>(url: string, headers?: HeadersInit) => Promise<R>;
+    get: (url: string, headers?: HeadersInit) => Promise<Response>;
     /**
      * The HTTP DELETE request method deletes the specified resource.
      *
@@ -98,6 +97,7 @@ export declare class Fetch {
      * @template R - response object.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
+     * @returns the status code of the request.
      * @example
      * const api = new Fetch();
      * api.delete("www.domain.com");
@@ -108,7 +108,7 @@ export declare class Fetch {
      *      "Authorization":"Bearer I_am_yow_token"
      * })
      */
-    delete: <R>(url: string, headers?: HeadersInit) => Promise<R>;
+    delete: (url: string, headers?: HeadersInit) => Promise<number>;
     /**
      * The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.
      * The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the same effect (that is no side effect), where successive identical POST may have additional effects, like passing an order several times.
@@ -119,10 +119,10 @@ export declare class Fetch {
      * * text/plain
      *
      * If you need to send a token on each request, you need to pass a second parameter with yow headers.
-     * @template R - response object.
      * @template B - body object.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
+     * @returns the status code of the request.
      * @example
      * const api = new Fetch();
      * api.post("www.domain.com", {
@@ -139,16 +139,16 @@ export declare class Fetch {
      *      "Authorization":"Bearer I_am_yow_token"
      * })
      */
-    post: <R, B>(url: string, body: B, headers?: HeadersInit) => Promise<R>;
+    post: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
     /**
      * The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.
      * The difference between PUT and POST is that PUT is idempotent: calling it once or several times successively has the same effect (that is no side effect), whereas successive identical POST requests may have additional effects, akin to placing an order several times.
      *
      * If you need to send a token on each request, you need to pass a second parameter with yow headers.
-     * @template R - response object.
      * @template B - body object.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
+     * @returns the status code of the request.
      * @example
      * const api = new Fetch();
      * api.put("www.domain.com", {
@@ -165,7 +165,7 @@ export declare class Fetch {
      *      "Authorization":"Bearer I_am_yow_token"
      * })
      */
-    put: <R, B>(url: string, body: B, headers?: HeadersInit) => Promise<R>;
+    put: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
     /**
      * The *HTTP PATCH* request method applies partial modifications to a resource.
      * *PATCH* is somewhat analogous to the *update* concept found in `CRUD` (in general, *HTTP* is different than `CRUD`, and the two should not be confused).
@@ -195,8 +195,8 @@ export declare class Fetch {
      *      "Accept": "application/json",
      *      "Authorization":"Bearer I_am_yow_token"
      * })
+     * @returns if you get a 200 status code make sure your response has a json. other wise use the request method.
      */
-    patch: <R, B>(url: string, body: B, headers?: HeadersInit) => Promise<R>;
+    patch: <B>(url: string, body: B, headers?: HeadersInit) => Promise<number>;
 }
 export {};
-//# sourceMappingURL=fetch.d.ts.map
