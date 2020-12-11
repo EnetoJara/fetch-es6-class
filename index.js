@@ -16,6 +16,7 @@ exports.Fetch = Fetch;
      *
      * @param {Request|string} req - it can be a string or a request.
      * @param {object} config - Request config obj.
+     * @returns {Promise<Response>} promise with yow response.
      * @example
      * const api = new Fetch();
      * api.request("https://www.mi-pagina-web.com/api/un-path",{
@@ -37,6 +38,48 @@ Fetch.prototype.request = function request(req, config) {
             return res;
         })
 };
+
+/**
+ *
+ * We first check if this url is already fetched if so, we just return it, else we trigger the **HTTP** request then we cached the result if it doesnt have an error.
+ *
+ * @param {string} url - endpoint we want to reach
+ * @param {string} cacheName - identifier of our cache.
+ * @param {HeaderInit} headers - http headers.
+ * @returns {Promise<Response>} promise with yow response.
+ */
+Fetch.prototype.cacheFirst = function cacheFirst(url, cacheName, headers) {
+    if (headers === void 0) { headers = defheaders; }
+
+    return window.caches.open(cacheName)
+        .then(cache=>{
+
+            return cache.match(url)
+            .then(response => {
+                if (response) {
+                    return response;
+                }
+
+                return fetch(url,{headers})
+                .then(res => {
+                    if (res.status>310) {
+                        throw res;
+                    }
+                    if (res.status===200) {
+                        cache.put(url,res);
+                    }
+
+                    return res;
+                }).catch(err => {
+                    throw err;
+                })
+            }).catch(err => {
+                throw err;
+            })
+        }).catch(err => {
+            throw err;
+        });
+};
 /**
      * The HTTP GET method requests a representation of the specified resource.
      * Requests using GET should only be used to request data (they shouldn't incude data).
@@ -44,6 +87,7 @@ Fetch.prototype.request = function request(req, config) {
      * If you need to send a token on each request, you need to pass a second parameter with yow headers.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
+     * @returns {Promise<Response>} promise with yow response.
      * @example
      * const api = new Fetch();
      * api.get("www.domain.com");

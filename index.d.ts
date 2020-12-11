@@ -59,6 +59,7 @@ export declare class Fetch {
      *
      * @param {Request|string} req - it can be a string or a request.
      * @param {object} config - Request config obj.
+     * @returns {Promise<Response>} promise with yow response.
      * @example
      * const api = new Fetch();
      * api.request("https://www.mi-pagina-web.com/api/un-path",{
@@ -79,6 +80,7 @@ export declare class Fetch {
      * If you need to send a token on each request, you need to pass a second parameter with yow headers.
      * @param {string} url - endpont.
      * @param {HeaderInit} [headers] - HTTP Headers.
+     * @returns {Promise<Response>} promise with yow response.
      * @example
      * const api = new Fetch();
      * api.get("www.domain.com");
@@ -198,5 +200,16 @@ export declare class Fetch {
      * @returns if status code is 200 it returns the response, else void
      */
     patch: <B>(url: string, body: B, headers?: HeadersInit) => Promise<Response|void>;
+
+    /**
+     * **HTTP GET METHOD**
+     *
+     * We first check if this url is already fetched if so, we just return it, else we trigger the **HTTP** request then we cached the result if it doesnt have an error.
+     *
+     * @param {string} url - endpoint.
+     * @param {string} cacheName - identifier of our cache.
+     * @param {HeadersInit} [headers] - http headers.
+     */
+    cacheFirst: (url: string, cacheName: string,headers?: HeadersInit)=>Promise<Response>;
 }
 export {};
